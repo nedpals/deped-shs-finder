@@ -9,6 +9,21 @@
 	    <a class="link dim gray f6 f5-ns dib" href="#" title="Contact">Contact</a>
 	  </div>
 	</nav>
+	<div class="fl w-100 pv3">
+	  	<div class="fl w-20">
+	  		<select>
+	  			<option v-for="r in regions" :value="r">{{ r }}</option>
+	  		</select>
+	  	</div>
+	  	<div class="fl w-20">
+	  		<input type="text" />
+	  	</div>
+	  	<div class="fl w-20">
+	  		<select>
+	  			<option v-for="p in programs" :value="p">{{ p }}</option>
+	  		</select>
+	  	</div>
+	  </div>
     <list v-infinite-scroll="loadMore" infinite-scroll-disabled="isLoading" infinite-scroll-distance="10" v-bind:loading="isLoading" v-bind:list-data="schoolData"></list>
   </div>
 </template>
@@ -40,7 +55,9 @@ export default {
   },
   computed: {
   	...mapState({
-    	schoolData: state => state.schools
+    	schoolData: state => state.schools,
+    	regions: state => state.regions,
+    	programs: state => state.programs
     })
   },
   components: {
