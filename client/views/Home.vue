@@ -10,18 +10,14 @@
 	  </div>
   </nav>
   <div class="f3 fl w-100 pv3 mb5 dib bg-dark-blue pa3 pa4-ns">
-  	<div class="fl w-20 pr4">
-  		<select class="w-100 bg-navy pv1 ph2 b--none white br2">
-  			<option v-for="r in regions" :value="r">{{ r }}</option>
-  		</select>
-  	</div>
-  	<div class="fl w-30 pr3">
-  		<input class="pa2 w-100 bg-navy b--none white br2" type="text" />
-  	</div>
-  	<div class="fl w-20 pr3">
-  		<select class="bg-navy pv1 ph2 b--none white br2">
-  			<option v-for="p in programs" :value="p">{{ p }}</option>
-  		</select>
+  	<div class="fl mh7 w-60 pr3">
+  		<input placeholder="Search..." class="pa3 w-100 bg-navy b--none white br2" type="text" />
+  		<ul class="list pl0 ma0 mt3 tc white">
+  			<li v-for="p in programs" class="dib pa2">
+  				<input type="checkbox" :id="p" :value="p">
+  				<label :for="p" class="lh-copy">{{ p }}</label>
+  			</li>
+  		</ul>
   	</div>
   </div>
   <div class="pa3 pa4-ns">
