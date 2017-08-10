@@ -44,10 +44,9 @@ const mutations = {
 
 const actions = {
   loadData({ commit }, page) {
-    axios.get("https://shs-k12-api.now.sh/schools?_page=" + page.toString())
+    axios.get("https://shs-k12-api.now.sh/schools?_sort=school_name&_page=" + page.toString())
       .then((response) => {
         commit('LOAD', response.data);
-        //console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
