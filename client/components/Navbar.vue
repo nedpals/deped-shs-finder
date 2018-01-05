@@ -24,6 +24,6 @@ export default {
 
 <style>
 .navbar.is-fixed-top {
-  z-index: 20;
+  z-index: 19 !important;
 }
 </style>
