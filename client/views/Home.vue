@@ -44,10 +44,7 @@
                     <label class="label">Programs</label>
                     <div class="control">
                       <b-field>
-                          <b-checkbox-button
-                              v-for="p in programs"
-                              :native-value="Nop"
-                              :type="shsProgramTagClass(p)">
+                          <b-checkbox-button v-for="(p, index) in programs" :key="index" :native-value="p">
                               <span>{{ p }}</span>
                           </b-checkbox-button>
                       </b-field>
@@ -86,6 +83,9 @@ import { mapActions, mapState } from 'vuex'
 import infiniteScroll from 'vue-infinite-scroll'
 
 export default {
+  mounted() {
+    this.loadMore()
+  },
   data() {
   	return {
   		pageNum: 1,
