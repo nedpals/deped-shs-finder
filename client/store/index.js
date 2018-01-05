@@ -75,7 +75,7 @@ const actions = {
 const getters = {
   limitData: (state, getters) => (num) => {
     return state.schools.slice(0, num)
-  },
+  }
   // selectedSchool: (state, getters) => (id) => {
   //   return
   //   // return state.schools.find(school => school.school_id === id)
