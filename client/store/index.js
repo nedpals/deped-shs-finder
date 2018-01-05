@@ -1,37 +1,28 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import fetchApi from '../helpers/fetchApi'
 
 Vue.use(Vuex)
 
 const state = {
+  search: {
+    query: '',
+    region: '',
+    province: '',
+    municipality: '',
+    programs: []
+  },
   schools: [],
-  regions: [
-    'ARMM',
-    'CAR',
-    'Caraga',
-    'NCR',
-    'NIR',
-    'Region I',
-    'Region II',
-    'Region III',
-    'Region IV-A',
-    'Region IV-B',
-    'Region V',
-    'Region VI',
-    'Region VII',
-    'Region VIII',
-    'Region IX',
-    'Region X',
-    'Region XI',
-    'Region XII'
-  ],
+  regions: [],
+  municipalities: [],
+  provinces: [],
   programs: [
     'ABM',
     'HUMSS',
     'GAS',
     'TVL',
-    'Arts and Design', 
+    'Arts and Design',
     'Sports'
   ]
 }
@@ -43,14 +34,14 @@ const mutations = {
 }
 
 const actions = {
-  loadData({ commit }, page) {
-    axios.get("https://shs-k12-api.now.sh/schools?_sort=school_name&_page=" + page.toString())
+  loadData ({ commit }, page) {
+    fetchApi().get('/schools', { params: { _sort: 'school_name', _page: page.toString() }})
       .then((response) => {
-        commit('LOAD', response.data);
+        commit('LOAD', response.data)
       })
       .catch((error) => {
-        console.log(error);
-      });
+        console.log(error)
+      })
   }
 }
 
