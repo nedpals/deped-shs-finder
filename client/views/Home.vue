@@ -5,7 +5,7 @@
     <div class="hero-body">
       <div class="container">
         <div class="columns is-mobile is-gapless is-centered">
-          <div class="column is-narrow is-half">
+          <div class="column is-narrow is-half-desktop is-10-tablet is-12-mobile">
             <div class="columns is-multiline">
               <div class="column has-text-centered is-12">
                 <h1 class="title is-size-1">
@@ -44,7 +44,7 @@
                     <label class="label">Programs</label>
                     <div class="control">
                       <b-field>
-                          <b-checkbox-button v-for="(p, index) in programs" :key="index" :native-value="p">
+                          <b-checkbox-button v-for="(p, index) in programs" type="is-fullwidth" :key="index" :native-value="p">
                               <span>{{ p }}</span>
                           </b-checkbox-button>
                       </b-field>
@@ -66,7 +66,12 @@
   <div class="container-fluid" id="results">
     <div class="columns is-narrow is-centered">
       <div class="column is-10">
-        <list v-infinite-scroll="loadMore" infinite-scroll-disabled="isLoading" infinite-scroll-distance="100" v-bind:loading="isLoading" v-bind:list-data="schoolData"></list>
+        <list v-infinite-scroll="loadMore"
+              infinite-scroll-disabled="isLoading"
+              infinite-scroll-distance="100"
+              :loading="isLoading"
+              :list-data="schoolData">
+        </list>
       </div>
     </div>
   </div>
@@ -83,9 +88,6 @@ import { mapActions, mapState } from 'vuex'
 import infiniteScroll from 'vue-infinite-scroll'
 
 export default {
-  mounted() {
-    this.loadMore()
-  },
   data() {
   	return {
   		pageNum: 1,
@@ -95,12 +97,12 @@ export default {
   methods: {
   	...mapActions([ 'loadData' ]),
     loadMore() {
-      this.isLoading = true;
+      this.isLoading = true
 
       setTimeout(() => {
         this.loadData(this.pageNum++)
-        this.isLoading = false;
-      }, 500);
+        this.isLoading = false
+      }, 500)
     },
     shsProgramTagClass(programType) {
       return {
