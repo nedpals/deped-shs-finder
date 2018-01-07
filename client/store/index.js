@@ -6,11 +6,14 @@ Vue.use(Vuex)
 
 const state = {
   search: {
-    q: '',
-    region: '',
-    province: '',
-    municipality: '',
-    programs: [],
+    searchMode: false,
+    submitted: {
+      q: '',
+      region: '',
+      province: '',
+      municipality: '',
+      programs: []
+    },
     results: []
   },
   schools: [],
@@ -25,7 +28,7 @@ const state = {
     'Arts and Design',
     'Sports'
   ],
-  selected_school: []
+  selectedSchool: []
 }
 
 const mutations = {
@@ -33,10 +36,16 @@ const mutations = {
     state.schools.push(...data)
   },
   LOAD_SCHOOL (state, data) {
-    state.selected_school = data
+    state.selectedSchool = data
   },
   LOAD_RESULT (state, data) {
     state.search.results = data
+  },
+  SAVE_FILTER (state, data) {
+    state.search.submitted = data
+  },
+  SWITCH_SEARCH (state, mode) {
+    state.search.searchMode = mode
   }
 }
 
@@ -51,19 +60,20 @@ const actions = {
       })
   },
   findSchoolById ({ commit }, schoolId) {
-    fetchApi().get('/schools', { params: { school_id: schoolId }})
+    fetchApi().get('/schools', { params: { 'school_id': schoolId }})
       .then(response => {
-        commit('LOAD_SCHOOL', response.data)
+        commit('LOAD_SCHOOL', response.data[0])
       })
       .catch(err => {
         console.log(err)
       })
   },
   searchSchool ({ commit }, searchParams) {
-    searchParams = Object.keys(searchParams).forEach(key => (searchParams[key] === null) && delete searchParams[key])
+    Object.keys(searchParams).forEach(key => (searchParams[key] === '') && delete searchParams[key])
     fetchApi().get('/schools', { params: searchParams })
       .then(response => {
         commit('LOAD_RESULT', response.data)
+        console.log(searchParams)
       })
       .catch(err => {
         console.log(err)

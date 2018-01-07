@@ -7,8 +7,15 @@ import App from './components/App'
 import router from './router'
 import store from './store'
 
-Vue.use(Buefy)
-Vue.use(Meta)
+Vue.component(Buefy.Modal.name, Buefy.Modal)
+Vue.component(Buefy.Message.name, Buefy.Message)
+Vue.component(Buefy.Field.name, Buefy.Field)
+Vue.component(Buefy.Loading.name, Buefy.Loading)
+Vue.component(Buefy.CheckboxButton.name, Buefy.CheckboxButton)
+
+Vue.use(Meta, {
+  keyName: 'metaInfo'
+})
 
 sync(store, router)
 

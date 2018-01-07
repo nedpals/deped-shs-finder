@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="modal-card">
+  <div v-if="schl" class="modal-card">
     <header class="modal-card-head">
       <nav class="level" style="width:100%;">
         <div class="level-left">
@@ -35,26 +35,24 @@
           <h1 class="title">{{ schl.school_name }}</h1>
           <p class="subtitle is-6 has-text-grey">
             <strong class="has-text-grey">{{ schl.region }}</strong> /
-            <strong class="has-text-grey">{{ $parent.region_fixed(schl.region, schl.province) }}</strong>
+            <strong class="has-text-grey">{{ schl.province }}</strong>
             <br />
             {{ schl.municipality }}
           </p>
         </div>
       </div>
       <div class="columns">
-        <div class="column is-half">
+        <div class="column">
           <h3 class="title is-4">Strands offered</h3>
           <div class="tags">
-            <span class="tag has-text-centered is-medium" :key="p" :class="$parent.shsProgramTagClass(p)" v-for="p in schl.programs">{{ p }}</span>
+            <span class="tag has-text-centered is-medium" :key="p" :class="colorizeTags(p)" v-for="p in schl.programs">{{ p }}</span>
           </div>
         </div>
-        <div class="column is-half">
+        <div v-show="typeof schl.tvl_specializations !== 'undefined' && schl.tvl_specializations.length > 0" class="column">
           <h3 class="title is-4">TVL Specializations:</h3>
-          <div v-show="typeof schl.tvl_specializations !== 'undefined' && schl.tvl_specializations.length > 0">
-            <ul>
-              <li :key="index" v-for="(s, index) in schl.tvl_specializations">{{ s }}</li>
-            </ul>
-          </div>
+          <ul>
+            <li :key="index" v-for="(s, index) in schl.tvl_specializations">{{ s }}</li>
+          </ul>
         </div>
       </div>
       <div class="columns">
@@ -65,19 +63,31 @@
       </div>
     </section>
     <footer class="modal-card-foot">
-      <button class="button">Search on Google</button>
+      <a :href="'https://google.com/search?q='+encodeURI(schl.school_name)" target="_blank" class="button">Search on Google</a>
     </footer>
   </div>
 </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
+  props: ['schoolId', 'colorizeTags'],
+  mounted() {
+    this.findSchoolById(this.schoolId || this.$route.query.school_id)
+  },
+  methods: {
+    ...mapActions([ 'findSchoolById' ]),
+    metaInfo () {
+      return {
+        title: this.schl.school_name
+      }
+    }
+  },
   computed: {
     ...mapState({
-      schl: state => state.selected_school[0]
+      schl: state => state.selectedSchool
     })
   }
 }

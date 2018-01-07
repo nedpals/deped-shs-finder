@@ -1,12 +1,21 @@
 <template>
 <div>
-  <navbar></navbar>
   <section class="hero is-light is-small">
     <div class="hero-body">
       <div class="container">
         <div class="columns is-mobile is-gapless is-centered">
           <div class="column is-narrow is-9-widescreen is-10-desktop is-10-tablet is-12-mobile">
-            <filter-form programs-list="programs"></filter-form>
+            <div class="columns is-multiline">
+              <!-- <div class="column has-text-centered is-12">
+                <h1 class="title is-size-1">
+                  Help pick what's right for you.
+                </h1>
+                <h2 class="subtitle">
+                  Lorem ipsum, hello world this is a static text.
+                </h2>
+              </div> -->
+              <filter-form :programs-list="programs"></filter-form>
+            </div>
           </div>
         </div>
       </div>
@@ -15,12 +24,26 @@
   <div class="container-fluid" id="results">
     <div class="columns is-narrow is-mobile is-centered">
       <div class="column is-12-tablet is-10-desktop">
-        <list v-infinite-scroll="loadMore"
-              infinite-scroll-disabled="isLoading"
-              infinite-scroll-distance="100"
-              :loading="isLoading"
-              :list-data="schoolData">
-        </list>
+
+        <transition name="fade-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+          <list
+                v-if="!searchMode"
+                v-infinite-scroll="loadMore"
+                infinite-scroll-disabled="isLoading"
+                infinite-scroll-distance="100"
+                :loading="isLoading"
+                :list-data="schoolData">
+          </list>
+        </transition>
+        <transition name="fade-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+          <div v-if="searchMode">
+            <h2>Results</h2> <button class="button" @click="resetResults">Close</button>
+            <list
+                  :loading="isLoading"
+                  :list-data="searchResults">
+            </list>
+          </div>
+        </transition>
       </div>
     </div>
   </div>
@@ -31,9 +54,8 @@
 </template>
 
 <script>
-const Navbar = () => import(/* webpackChunkName: "navbar" */ 'components/Navbar')
 const FilterForm = () => import(/* webpackChunkName: "site-filter-form" */ 'components/FilterForm')
-const List = () => import(/* webpackChunkName: "school-list" */ 'components/List')
+import List from 'components/List'
 
 import { mapActions, mapState } from 'vuex'
 import infiniteScroll from 'vue-infinite-scroll'
@@ -65,18 +87,22 @@ export default {
         "is-link": programType === "Arts and Design",
         "is-primary": programType === "Sports"
       }
+    },
+    resetResults() {
+      this.$store.commit('SWITCH_SEARCH', false)
     }
   },
   computed: {
   	...mapState({
     	schoolData: state => state.schools,
     	regions: state => state.regions,
-    	programs: state => state.programs
+      programs: state => state.programs,
+      searchMode: state => state.search.searchMode,
+      searchResults: state => state.search.results
     })
   },
   components: {
     List,
-    Navbar,
     FilterForm
   },
   directives: {
@@ -87,6 +113,10 @@ export default {
 
 <style src="bulma/css/bulma.css">
 </style>
+
+<style src="animate.css/animate.css">
+</style>
+
 
 <style>
 #results {

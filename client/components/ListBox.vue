@@ -26,14 +26,17 @@
 
 <script>
 export default {
-  props: ['schoolData'],
+  props: ['schoolsData'],
   data() {
     return {
-      school: this.schoolData
+      school: this.schoolsData
     }
   }
 }
 </script>
 
 <style lang="css" scoped>
+.school-name {
+  cursor: pointer;
+}
 </style>

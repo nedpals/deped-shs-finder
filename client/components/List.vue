@@ -2,12 +2,14 @@
 <div>
   <b-loading :active.sync="loading" :canCancel="true"></b-loading>
   <div v-if="listData" class="columns is-multiline">
-    <div class="column is-4" v-bind:key="school.school_id"  v-for="school in listData">
-        <list-box :school-data="school"></list-box>
+    <div class="column is-4" :key="school.school_id"  v-for="school in listData">
+        <list-box :schools-data="school"></list-box>
     </div>
   </div>
-  <b-modal :active.sync="isCardModalActive" :width="640" scroll="keep" @close="closeModal" has-modal-card>
-    <school-modal></school-modal>
+  <b-modal v-if="$store.state.selectedSchool" :active.sync="isCardModalActive" :width="640" scroll="keep" @close="closeModal" has-modal-card>
+    <school-modal :school-id="schoolIdSelected"
+                  :colorize-tags="shsProgramTagClass">
+    </school-modal>
   </b-modal>
 </div>
 </template>
@@ -15,7 +17,6 @@
 <script>
 const ListBox = () => import(/* webpackChunkName: "school-list-box" */ 'components/ListBox')
 const SchoolModal = () => import(/* webpackChunkName: "school-modal" */ 'components/SchoolModal')
-
 import { mapActions } from 'vuex'
 
 export default {
@@ -26,7 +27,8 @@ export default {
   },
   data() {
     return {
-      isCardModalActive: false
+      isCardModalActive: false,
+      schoolIdSelected: this.$route.query.school_id
     }
   },
 	methods: {
@@ -47,6 +49,7 @@ export default {
     },
     openModal(school_id) {
       this.isCardModalActive = true
+      this.schoolIdSelected = school_id
       this.$router.push({ query: { school_id: school_id } }, (route) => {
         this.findSchoolById(route.query.school_id)
       })
@@ -59,7 +62,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.school-name {
-  cursor: pointer;
-}
+
 </style>

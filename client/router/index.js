@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const Home = () => import('../views/Home')
-const NotFound = () => import('../views/NotFound')
+import Home from '../views/Home'
+import NotFound from '../views/NotFound'
 
 Vue.use(Router)
 
