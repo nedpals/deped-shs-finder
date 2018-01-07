@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import fetchApi from '../helpers/fetchApi'
+import fetchApi from '../helpers/fetch-api'
 
 Vue.use(Vuex)
 
