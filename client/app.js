@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import { sync } from 'vuex-router-sync'
+import Buefy from 'buefy'
+import Meta from 'vue-meta'
+import 'buefy/lib/buefy.css'
 import App from './components/App'
 import router from './router'
 import store from './store'
-import Buefy from 'buefy'
-import 'buefy/lib/buefy.css'
 
 Vue.use(Buefy)
+Vue.use(Meta)
 
 sync(store, router)
 
