@@ -43,42 +43,38 @@ const mutations = {
 const actions = {
   loadData ({ commit }, page) {
     fetchApi().get('/schools', { params: { _sort: 'school_name', _page: page.toString() }})
-      .then((response) => {
+      .then(response => {
         commit('LOAD', response.data)
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(err => {
+        console.log(err)
       })
   },
   findSchoolById ({ commit }, schoolId) {
-    fetchApi().get('/schools', { params: { school_id: schoolId } })
-      .then((response) => {
+    fetchApi().get('/schools', { params: { school_id: schoolId }})
+      .then(response => {
         commit('LOAD_SCHOOL', response.data)
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(err => {
+        console.log(err)
       })
   },
   searchSchool ({ commit }, searchParams) {
-    searchParams = Object.keys(searchParams).forEach((key) => (searchParams[key] == null) && delete searchParams[key])
+    searchParams = Object.keys(searchParams).forEach(key => (searchParams[key] === null) && delete searchParams[key])
     fetchApi().get('/schools', { params: searchParams })
-      .then((response) => {
+      .then(response => {
         commit('LOAD_RESULT', response.data)
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(err => {
+        console.log(err)
       })
   }
 }
 
 const getters = {
-  limitData: (state, getters) => (num) => {
+  limitData: (state, getters) => num => {
     return state.schools.slice(0, num)
   }
-  // selectedSchool: (state, getters) => (id) => {
-  //   return
-  //   // return state.schools.find(school => school.school_id === id)
-  // }
 }
 
 const store = new Vuex.Store({
