@@ -13,8 +13,8 @@
     </div>
   </section>
   <div class="container-fluid" id="results">
-    <div class="columns is-narrow is-centered">
-      <div class="column is-10">
+    <div class="columns is-narrow is-mobile is-centered">
+      <div class="column is-12-tablet is-10-desktop">
         <list v-infinite-scroll="loadMore"
               infinite-scroll-disabled="isLoading"
               infinite-scroll-distance="100"
