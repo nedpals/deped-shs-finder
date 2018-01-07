@@ -82,8 +82,10 @@
 </template>
 
 <script>
-import List from 'components/List'
-import Navbar from 'components/Navbar'
+const Navbar = () => import(/* webpackChunkName: "navbar" */ 'components/Navbar')
+const FilterForm = () => import(/* webpackChunkName: "site-filter-form" */ 'components/FilterForm')
+const List = () => import(/* webpackChunkName: "school-list" */ 'components/List')
+
 import { mapActions, mapState } from 'vuex'
 import infiniteScroll from 'vue-infinite-scroll'
 
@@ -125,7 +127,8 @@ export default {
   },
   components: {
     List,
-    Navbar
+    Navbar,
+    FilterForm
   },
   directives: {
   	infiniteScroll

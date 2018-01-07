@@ -29,13 +29,16 @@
 </template>
 
 <script>
+const ListBox = () => import(/* webpackChunkName: "school-list-box" */ 'components/ListBox')
+const SchoolModal = () => import(/* webpackChunkName: "school-modal" */ 'components/SchoolModal')
+
 import { mapActions } from 'vuex'
-import SchoolModal from 'components/SchoolModal'
 
 export default {
   props: ['loading', 'listData'],
   components: {
-    SchoolModal
+    SchoolModal,
+    ListBox
   },
   data() {
     return {
