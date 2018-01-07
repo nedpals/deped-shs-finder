@@ -1,27 +1,11 @@
 <template>
 <div>
+  <b-loading :active.sync="loading" :canCancel="true"></b-loading>
   <div v-if="listData" class="columns is-multiline">
     <div class="column is-4" v-bind:key="school.school_id"  v-for="school in listData">
-      <div class="box">
-        <div class="columns is-multiline">
-          <div class="column is-12 has-text-centered">
-            <h3 class="school-name title is-5" @click="openModal(school.school_id)">{{ school.school_name }}</h3>
-            <p class="subtitle is-6 has-text-grey">
-              <strong class="has-text-grey">{{ school.region }}</strong> /
-              <strong class="has-text-grey">{{ region_fixed(school.region, school.province) }}</strong>
-              <br />
-              {{ school.municipality }}
-            </p>
-            <div class="tags">
-              <span :key="index" class="tag has-text-centered" :class="shsProgramTagClass(p)" v-for="(p, index) in school.programs">{{ p }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+        <list-box :school-data="school"></list-box>
     </div>
   </div>
-  <b-loading :active.sync="loading" :canCancel="true"></b-loading>
-
   <b-modal :active.sync="isCardModalActive" :width="640" scroll="keep" @close="closeModal" has-modal-card>
     <school-modal></school-modal>
   </b-modal>
