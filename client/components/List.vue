@@ -58,7 +58,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="css" scoped>
 .school-name {
   cursor: pointer;
 }
