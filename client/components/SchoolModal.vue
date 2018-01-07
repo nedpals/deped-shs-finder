@@ -35,7 +35,7 @@
           <h1 class="title">{{ schl.school_name }}</h1>
           <p class="subtitle is-6 has-text-grey">
             <strong class="has-text-grey">{{ schl.region }}</strong> /
-            <strong class="has-text-grey">{{ region_fixed(schl.region, schl.province) }}</strong>
+            <strong class="has-text-grey">{{ $parent.region_fixed(schl.region, schl.province) }}</strong>
             <br />
             {{ schl.municipality }}
           </p>
@@ -45,7 +45,7 @@
         <div class="column is-half">
           <h3 class="title is-4">Strands offered</h3>
           <div class="tags">
-            <span class="tag has-text-centered is-medium" :key="p" :class="shsProgramTagClass(p)" v-for="p in schl.programs">{{ p }}</span>
+            <span class="tag has-text-centered is-medium" :key="p" :class="$parent.shsProgramTagClass(p)" v-for="p in schl.programs">{{ p }}</span>
           </div>
         </div>
         <div class="column is-half">
@@ -79,22 +79,6 @@ export default {
     ...mapState({
       schl: state => state.selected_school[0]
     })
-  },
-  methods: {
-		region_fixed(reg, prov) {
-			return prov.replace(new RegExp(reg, "g"), "")
-    },
-    shsProgramTagClass (programType) {
-      return {
-        "is-danger": programType === "ABM",
-        "is-success": programType === "HUMSS",
-        "is-dark": programType === "STEM",
-        "is-warning": programType === "GAS",
-        "is-info": programType === "TVL",
-        "is-link": programType === "Arts and Design",
-        "is-primary": programType === "Sports"
-      }
-    }
   }
 }
 </script>
