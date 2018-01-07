@@ -48,10 +48,7 @@ export default {
     openModal(school_id) {
       this.isCardModalActive = true
       this.$router.push({ query: { school_id: school_id } }, (route) => {
-        const checkSchoolId = route.query.school_id !== this.$store.state.selected_school[0].school_id
-        if (checkSchoolId || route.query.school_id) {
-          this.findSchoolById(route.query.school_id)
-        }
+        this.findSchoolById(route.query.school_id)
       })
     },
     closeModal() {
