@@ -22,6 +22,7 @@ const state = {
   provinces: [],
   programs: [
     'ABM',
+    'STEM',
     'HUMSS',
     'GAS',
     'TVL',
