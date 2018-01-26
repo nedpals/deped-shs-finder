@@ -68,7 +68,7 @@
 </template>
 
 <script>
-const FilterForm = () => import(/* webpackChunkName: "site-filter-form" */ 'components/FilterForm')
+import FilterForm from 'components/FilterForm'
 import List from 'components/List'
 
 import { mapActions, mapState } from 'vuex'
