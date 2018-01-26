@@ -15,8 +15,8 @@
 </template>
 
 <script>
-const ListBox = () => import(/* webpackChunkName: "school-list-box" */ 'components/ListBox')
-const SchoolModal = () => import(/* webpackChunkName: "school-modal" */ 'components/SchoolModal')
+import ListBox from 'components/ListBox'
+import SchoolModal from 'components/SchoolModal'
 import { mapActions } from 'vuex'
 
 export default {
