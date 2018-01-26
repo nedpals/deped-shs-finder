@@ -37,7 +37,21 @@
         </transition>
         <transition name="fade-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
           <div v-if="searchMode">
-            <h2>Results</h2> <button class="button" @click="resetResults">Close</button>
+            <section class="section">
+              <div class="container-fluid">
+                <div class="columns">
+                  <div class="column is-four-fifths">
+                    <h2 class="title">Results</h2>
+                    <h2 class="subtitle">
+                      {{ searchResults.length }} schools found
+                    </h2>
+                  </div>
+                  <div class="column">
+                    <button class="button is-large is-fullwidth is-danger is-outlined" @click="resetResults">Close</button>
+                  </div>
+                </div>
+              </div>
+            </section>
             <list
                   :loading="isLoading"
                   :list-data="searchResults">
@@ -110,12 +124,6 @@ export default {
   }
 }
 </script>
-
-<style src="bulma/css/bulma.css">
-</style>
-
-<style src="animate.css/animate.css">
-</style>
 
 
 <style>
