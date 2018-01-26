@@ -5,10 +5,14 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 html, body {
   font-family: "Lato", sans-serif !important;
 }
+
+@import "~bulma/sass/utilities/_all";
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
 </style>
 
 <script>
