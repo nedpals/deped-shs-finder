@@ -16,7 +16,7 @@
 
 <script>
 import ListBox from 'components/ListBox'
-const SchoolModal = () => import(/* webpackChunkName: "school-modal" */ 'components/SchoolModal')
+import SchoolModal from 'components/SchoolModal'
 import { mapActions } from 'vuex'
 
 export default {

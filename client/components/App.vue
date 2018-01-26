@@ -16,7 +16,7 @@ html, body {
 </style>
 
 <script>
-const Navbar = () => import(/* webpackChunkName: "navbar" */ 'components/Navbar')
+import Navbar from 'components/Navbar'
 export default {
   metaInfo: {
     titleTemplate: (titleChunk) => { return titleChunk ? `${titleChunk} - K12 SHS Finder` : 'K12 SHS Finder' },
