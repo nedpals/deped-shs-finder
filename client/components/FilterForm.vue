@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="column is-12">
+  <div class="column is-12" @keyup.enter="submitFilter">
     <div class="columns is-multiline">
       <div class="field column is-12 is-marginless">
         <div class="control">
@@ -27,9 +27,9 @@
       </div> -->
       <div class="field column is-8 is-marginless">
         <label class="label">Programs</label>
-        <div class="control" style="width:100%;">
+        <div class="control" style="width:130%;">
           <b-field>
-              <b-checkbox-button v-model="filtered.programs" type="is-primary" v-for="(p, index) in programs" :key="index" :native-value="p">
+              <b-checkbox-button v-model="filtered.programs" :type="shsProgramTagClass(p)" v-for="(p, index) in programs" :key="index" :native-value="p">
                   <span>{{ p }}</span>
               </b-checkbox-button>
           </b-field>
@@ -37,7 +37,7 @@
       </div>
       <div class="field column is-4 is-marginless">
         <div class="control">
-          <button @click="submitFilter" @keyup.enter="submitFilter" class="button is-link is-fullwidth is-large">Search</button>
+          <button @click="submitFilter" class="button is-link is-fullwidth is-large">Search</button>
         </div>
       </div>
     </div>
@@ -68,6 +68,17 @@ export default {
       this.$store.commit('SAVE_FILTER', this.filtered)
       this.$store.commit('SWITCH_SEARCH', true)
       this.searchSchool(this.$store.state.search.submitted)
+    },
+    shsProgramTagClass (programType) {
+      return {
+        "is-danger": programType === "ABM",
+        "is-success": programType === "HUMSS",
+        "is-dark": programType === "STEM",
+        "is-warning": programType === "GAS",
+        "is-info": programType === "TVL",
+        "is-link": programType === "Arts and Design",
+        "is-primary": programType === "Sports"
+      }
     }
   }
 }
